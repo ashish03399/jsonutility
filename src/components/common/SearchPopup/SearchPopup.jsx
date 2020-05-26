@@ -4,15 +4,12 @@ import DynamicTable from "../dynamicTable/DynamicTable";
 import style from './SearchPopUp.scss';
 
 const SearchPopup = props => {
-  console.log('AAAAA',props);
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
+  const [popoverOpen, setPopoverOpen] = useState('true');
   const toggle = () => setPopoverOpen(!popoverOpen);
-
   return (
     <div>
       <Button id="Popover1" type="button">
-        Launch Popover
+        {popoverOpen ? 'Hide' : 'Show'}
       </Button>
       <Popover popperClassName={'dynamicTable' }placement="bottom" isOpen={popoverOpen} target="Popover1" toggle={toggle}>
           <PopoverHeader>Popover Title</PopoverHeader>

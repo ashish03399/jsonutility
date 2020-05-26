@@ -12,50 +12,72 @@ import {
   Row
 } from "reactstrap";
 import SearchPopup from "../../common/SearchPopup/SearchPopup";
+import {JSON_URLS} from "./Constants";
+import {getLocalStorage, setLocalStorage} from "../../../utils/LocalStorageUtils";
 
 const JsonHeader = (props) => {
-  const [first, setFirst] = useState(false);
+  const [showUrl, setShowUrl] = useState(false);
+  const [inputUrl, setInputUrl] = useState('');
+  const [showJsonSearchType, setShowJsonSearchType] = useState(false);
+  const addedUrl = getLocalStorage(JSON_URLS) || [];
+
+  const addUrlInlocalStorage = () => {
+    const isUrlAdded = addedUrl.filter(urlObj=>{
+      return urlObj.url === inputUrl;
+    })
+    if(isUrlAdded?.length === 0 && inputUrl){
+      addedUrl.push({key:'url', url:decodeURIComponent(inputUrl)})
+      setLocalStorage(JSON_URLS, addedUrl);
+    }
+  }
+
   return <CardHeader>
     <Row>
-      <Col xs="12" md="4">
+      <Col xs="12" md="7">
         <InputGroup>
-          <InputGroupButtonDropdown className={'fitheight'} addonType="prepend"
-                                    isOpen={first}
-                                    toggle={() => {
-                                      setFirst(!first);
-                                    }}>
+          <InputGroupButtonDropdown
+            className={'fitheight'}
+            addonType="prepend"
+            isOpen={showUrl}
+            toggle={() => {
+            setShowUrl(!showUrl);
+          }}>
             <DropdownToggle caret color="primary">
               URL
             </DropdownToggle>
-            <DropdownMenu className={first ? 'show' : ''}>
-              <DropdownItem>Add </DropdownItem>
+            <DropdownMenu className={showUrl ? 'show' : ''}>
+              {addedUrl?.map((item) =>
+                <DropdownItem onClick={()=>{setInputUrl(item?.url)}}>{item?.url} </DropdownItem>
+              )}
             </DropdownMenu>
           </InputGroupButtonDropdown>
-          <Input type="text" className={'mb-1'} id="input1-group3" name="input1-group3" placeholder="Username"/>
-          <InputGroupAddon className={'fitheight'} addonType="append">
+          <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onChange={(e)=>{setInputUrl(e.target.value)}}name="input1-group3" placeholder="URL"/>
+          <InputGroupAddon title={'Hit URL'} className={'fitheight'} addonType="append">
             <Button type="button" onClick={() => {
               props.getData()
-            }} color="primary"><i className="fa fa-twitter"></i></Button>
+            }} color="primary"><i className="fa fa-arrow-right"></i></Button>
+          </InputGroupAddon>
+          <InputGroupAddon title={'Refersh API Data'} className={'fitheight ml-1'}>
+            <Button type="button" onClick={() => {
+              props.getData()
+            }} color="primary"><i className="fa fa-refresh"></i></Button>
+          </InputGroupAddon>
+          <InputGroupAddon title={'Add URL'} className={'fitheight ml-1'}>
+            <Button type="button" onClick={addUrlInlocalStorage} color="primary"><i className="fa fa-plus"></i></Button>
           </InputGroupAddon>
         </InputGroup>
-      </Col>
-      <Col xs="6" md="1">
-        <Button color="primary" className={'mb-1 ml-2'} id="toggleCollapse1">Toggle</Button>
-      </Col>
-      <Col xs="6" md="2">
-        <Button color="primary" className={'mb-1 ml-2'} id="toggleCollapse1">Saisha Bansal</Button>
       </Col>
       <Col xs="12" md="4">
         <InputGroup>
           <InputGroupButtonDropdown className={'fitheight'} addonType="prepend"
-                                    isOpen={first}
+                                    isOpen={showJsonSearchType}
                                     toggle={() => {
-                                      setFirst(!first);
+                                      setShowJsonSearchType(!showJsonSearchType);
                                     }}>
             <DropdownToggle caret color="primary">
-              Search In JSON
+              Search
             </DropdownToggle>
-            <DropdownMenu className={first ? 'show' : ''}>
+            <DropdownMenu className={showJsonSearchType ? 'show' : ''}>
               <DropdownItem>Search By Key</DropdownItem>
               <DropdownItem>Search By Value</DropdownItem>
               <DropdownItem divider/>
@@ -64,7 +86,7 @@ const JsonHeader = (props) => {
           </InputGroupButtonDropdown>
           <Input type="text" value={props.filterKey} onChange={(e) => {
             props.setFilterKey(e.target.value)
-          }} className={'mb-1'} id="input1-group3" name="input1-group3" placeholder="Username"/>
+          }} className={'mb-1'} id="input1-group3" name="input1-group3" placeholder="Key/Value"/>
           <InputGroupAddon className={'fitheight'} addonType="append">
             <Button type="button" onClick={() => {
               props.filterData()
@@ -73,16 +95,14 @@ const JsonHeader = (props) => {
         </InputGroup>
 
       </Col>
-      <Col xs="12" md="1">
-        <SearchPopup jsonData={props.filteredData}/>
+      <Col xs="12" md="2">
+        {props.filteredData && <SearchPopup jsonData={props.filteredData}/>}
       </Col>
     </Row>
   </CardHeader>
 }
 
 
-JsonHeader.propTypes = {
-
-};
+JsonHeader.propTypes = {};
 
 export default JsonHeader;
