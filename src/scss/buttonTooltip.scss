@@ -1,0 +1,325 @@
+@import "./variables";
+
+button[data-tooltip] {
+  overflow: visible;
+}
+
+span[data-tooltip] {
+  overflow: visible;
+}
+
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-tooltip]::after {
+  filter: alpha(opacity=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+  pointer-events: none;
+  font: var(--theme-b2-font-light);
+  background-color: var(--color-primary-scale-5);
+  border: 1px solid var(--color-stroke-registry-tooltip);
+  box-shadow: 0 7px 10px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  color: var(--color-primary-scale-0);
+  content: attr(data-tooltip);
+  padding: 11px 20px;
+  position: absolute;
+  z-index: 10;
+  text-decoration: none;
+  white-space: normal;
+  width: 180px;
+}
+
+[data-tooltip]::before {
+  background-size: 100% auto;
+  width: 13px;
+  height: 13px;
+  filter: alpha(opacity=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  z-index: 1025;
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::before,
+[data-tooltip]:focus::after,
+[data-tooltip].data-tooltip-visible::before,
+[data-tooltip].data-tooltip-visible::after {
+  filter: alpha(opacity=100);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-tooltip].tooltip-hide:hover::before,
+[data-tooltip].tooltip-hide:hover::after,
+[data-tooltip].tooltip-hide:focus::before,
+[data-tooltip].tooltip-hide:focus::after {
+  filter: alpha(opacity=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+  pointer-events: auto;
+}
+
+[data-tooltip].tooltip-top:focus,
+[data-tooltip].tooltip-top:hover {
+  text-decoration: none;
+}
+
+[data-tooltip].tooltip-bottom:focus,
+[data-tooltip].tooltip-bottom:hover {
+  text-decoration: none;
+}
+
+[data-tooltip].tooltip-left:focus,
+[data-tooltip].tooltip-left:hover {
+  text-decoration: none;
+}
+
+[data-tooltip].tooltip-right:focus,
+[data-tooltip].tooltip-right:hover {
+  text-decoration: none;
+}
+
+[data-tooltip].data-tooltip-break::after {
+  white-space: pre;
+}
+
+[data-tooltip].tooltip-top::after {
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 11px;
+  -webkit-transform: translate(-50%, 10px);
+  -moz-transform: translate(-50%, 10px);
+  -ms-transform: translate(-50%, 10px);
+  transform: translate(-50%, 10px);
+  -webkit-transform-origin: top;
+  -moz-transform-origin: top;
+  -ms-transform-origin: top;
+  transform-origin: top;
+}
+
+[data-tooltip].tooltip-top::before {
+  bottom: 100%;
+  left: 33%;
+  margin-bottom: 5px;
+  -webkit-transform: translate(-50%, 10px);
+  -moz-transform: translate(-50%, 10px);
+  -ms-transform: translate(-50%, 10px);
+  transform: translate(-50%, 10px);
+  -webkit-transform-origin: top;
+  -moz-transform-origin: top;
+  -ms-transform-origin: top;
+  transform-origin: top;
+}
+
+[data-tooltip].tooltip-top:focus::after,
+[data-tooltip].tooltip-top:hover::after,
+[data-tooltip].tooltip-top.data-tooltip-visible::after {
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+[data-tooltip].data-top-corner:hover::before,
+[data-tooltip].tooltip-top:focus::before,
+[data-tooltip].tooltip-top:hover::before,
+[data-tooltip].tooltip-top.data-tooltip-visible::before {
+  top: -16px;
+  transform: rotate(45deg);
+  color: #fff;
+  background-color: #fff;
+  outline-offset: 0.1px;
+  border-bottom: 1px solid #6ab8ff !important;
+  border-right: 1px solid #6ab8ff !important;
+}
+
+/** For bottom tooltip */
+[data-tooltip].tooltip-bottom::after {
+  left: 50%;
+  margin-top: 11px;
+  top: 100%;
+  -webkit-transform: translate(-50%, -10px);
+  -moz-transform: translate(-50%, -10px);
+  -ms-transform: translate(-50%, -10px);
+  transform: translate(-50%, -10px);
+}
+
+[data-tooltip].tooltip-bottom::before {
+  background-size: 100% auto;
+  width: 13px;
+  height: 13px;
+  margin-top: 5px;
+  top: 100%;
+  -webkit-transform: translate(-50%, -10px);
+  -moz-transform: translate(-50%, -10px);
+  -ms-transform: translate(-50%, -10px);
+  transform: translate(-50%, -10px);
+  left: 50%;
+  margin-left: -8px;
+}
+
+[data-tooltip].tooltip-bottom:focus::after,
+[data-tooltip].tooltip-bottom:hover::after,
+[data-tooltip].tooltip-bottom.data-tooltip-visible::after {
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+[data-tooltip].tooltip-bottom:focus::before,
+[data-tooltip].tooltip-bottom:hover::before,
+[data-tooltip].tooltip-bottom.data-tooltip-visible::before {
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  bottom: 16px;
+  transform: rotate(225deg);
+  color: #fff;
+  background-color: #fff;
+  outline-offset: 0.1px;
+  border-bottom: 1px solid #6ab8ff !important;
+  border-right: 1px solid #6ab8ff !important;
+}
+
+/** For left tooltip */
+[data-tooltip].tooltip-left::after {
+  margin-right: 14px;
+  right: 100%;
+  top: 50%;
+  -webkit-transform: translate(10px, -50%);
+  -moz-transform: translate(10px, -50%);
+  -ms-transform: translate(10px, -50%);
+  transform: translate(10px, -50%);
+}
+
+[data-tooltip].tooltip-left::before {
+  background-size: 100% auto;
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  right: 100%;
+  top: 50%;
+  -webkit-transform: translate(10px, -50%);
+  -moz-transform: translate(10px, -50%);
+  -ms-transform: translate(10px, -50%);
+  transform: translate(10px, -50%);
+}
+
+[data-tooltip].tooltip-left:focus::after,
+[data-tooltip].tooltip-left:hover::after,
+[data-tooltip].tooltip-left.data-tooltip-visible::after {
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+[data-tooltip].tooltip-left:focus::before,
+[data-tooltip].tooltip-left:hover::before,
+[data-tooltip].tooltip-left.data-tooltip-visible::before {
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  top: 2px;
+  transform: rotate(315deg);
+  color: #fff;
+  background-color: #fff;
+  outline-offset: 0.1px;
+  border-bottom: 1px solid #6ab8ff !important;
+  border-right: 1px solid #6ab8ff !important;
+}
+
+/** For left tooltip */
+[data-tooltip].tooltip-right::after {
+  left: 80%;
+  margin-left: 11px;
+  top: 50%;
+  -webkit-transform: translate(-10px, -50%);
+  -moz-transform: translate(-10px, -50%);
+  -ms-transform: translate(-10px, -50%);
+  transform: translate(-10px, -50%);
+}
+
+[data-tooltip].tooltip-right::before {
+  background-size: 100% auto;
+  width: 13px;
+  height: 13px;
+  left: 80%;
+  margin-left: 5px;
+  top: 50%;
+  -webkit-transform: translate(-10px, -50%);
+  -moz-transform: translate(-10px, -50%);
+  -ms-transform: translate(-10px, -50%);
+  transform: translate(-10px, -50%);
+}
+
+[data-tooltip].tooltip-right:focus::after,
+[data-tooltip].tooltip-right:hover::after,
+[data-tooltip].tooltip-right.data-tooltip-visible::after {
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+[data-tooltip].tooltip-right:focus::before,
+[data-tooltip].tooltip-right:hover::before,
+[data-tooltip].tooltip-right.data-tooltip-visible::before {
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  top: 2px;
+  transform: rotate(135deg);
+  color: #fff;
+  background-color: #fff;
+  outline-offset: 0.1px;
+  border-bottom: 1px solid #6ab8ff !important;
+  border-right: 1px solid #6ab8ff !important;
+}
+
+[data-tooltip].data-tooltip-large::after {
+  width: 260px;
+}
+
+[data-tooltip].data-tooltip-xlarge::after {
+  width: 380px;
+}
+
+[data-tooltip].data-tooltip-xmedium::after {
+  width: 200px;
+}
+
+[data-tooltip].data-tooltip-medium::after {
+  width: 150px;
+}
+
+[data-tooltip].data-tooltip-small::after {
+  width: 80px;
+}
+
+[data-tooltip].data-top-corner::after {
+  bottom: 100%;
+  left: -350%;
+  margin-bottom: 19px;
+  padding: 10px;
+  transform: translate(-50%, 10px);
+  transform-origin: top;
+}

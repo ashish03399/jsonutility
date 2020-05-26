@@ -1,0 +1,11 @@
+.dynamicTable {
+  max-width: 350px;
+  max-height: 250px;
+  left: -133px !important;
+  top :113px
+}
+
+.dynamicTable > popover-inner + .arrow {
+  left: auto;
+  right: 15px;
+}
