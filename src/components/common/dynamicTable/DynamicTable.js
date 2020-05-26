@@ -4,11 +4,11 @@ import {Badge, CardBody, Pagination, PaginationItem, PaginationLink, Table} from
 
 
 const DynamicTable = props => {
-  const tableContent = props.jsonData.map((data) => {
+  const tableContent = props.jsonData?.map((data) => {
     return <tr>
-      <td>{data.path.slice(1,data.path.length-1).join('-->')}</td>
-      <td>{data.path[data.path.length-1]}</td>
-      <td>{''+data.value}</td>
+      <td>{data?.path?.slice(1,data.path.length-1).join('-->')}</td>
+      <td>{data?.path[data.path.length-1]}</td>
+      <td>{''+JSON.stringify(data?.value)}</td>
     </tr>
 
 

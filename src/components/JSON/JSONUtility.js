@@ -30,7 +30,7 @@ import {
   InputGroupAddon, CardFooter, ButtonGroup
 } from 'reactstrap';
 import styles from './styles.scss'
-import {getApi} from '../../thirdParty/axios/axisConfig'
+import { getApi } from '../../thirdParty/axios/axisConfig'
 import SearchPopup from "../common/SearchPopup/SearchPopup";
 import JsonHeader from "./JsonHeader/JsonHeader";
 import JsonSubHeader from "./JsonSubHeader/JsonSubHeader";
@@ -41,41 +41,43 @@ var beautify = require('js-beautify').js;
 
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
+  const [error, setError] = useState();
   const [filteredData, setfilteredData] = useState();
   const [filterKey, setFilterKey] = useState();
-  const getJsonData = () => {
-    getApi('./thirdParty/axios/mockData/data.js').then((response) => {
-      setJsonData(data)
-    }).catch(e => {
-      // const res = beautify(JSON.stringify(data))
-      // console.log(renderjson)
-      window.renderjson = renderjson;
-      window.ReactHtmlParser = ReactHtmlParser;
-      //{ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }
-      renderjson.set_show_to_level(4)
-      renderjson.set_depth_identifier(' > ')
-      const res = renderjson({
-        hello: [1, "2a", "3a", 4],
-        there: {a: 1, b: {"meddile": {'a2a': 'a2aV'}}, c: ["hello11", {helloaguan: [{aa: "aaV"}, {bb: "bbV"}]}]}
-      });
-      document.getElementById("reactTest").appendChild(
-        res
-      );
-      setJsonData(data)
-    })
+  const callApi = (inputUrl) => {
+    // removing last child
+    setJsonData(data);
+    renderjson.set_show_to_level(4)
+    renderjson.set_depth_identifier(' > ')
+    document.getElementById("renderJson").appendChild(
+      renderjson(data)
+    );
+    // document.getElementById("renderJson").innerHTML = '';
+    // getApi(inputUrl).then((response) => {
+    //   setJsonData(response)
+    //   renderjson.set_show_to_level(4)
+    //   renderjson.set_depth_identifier(' > ')
+    //   document.getElementById("renderJson").appendChild(
+    //     renderjson(response)
+    //   );
+    // }).catch(e => {
+    //   setError(e);
+    // })
   }
 
   const filterData = () => {
     const filterTT = filterKey || 'MilitaryProgramId';
-    if(jsonData)
-      setfilteredData(jsonpath.nodes(jsonData, `$..${filterTT}`));
+    if(jsonData) {
+      const tt = jsonpath.nodes(jsonData, `$..${filterTT}`);
+      setfilteredData(tt);
+    }
   }
 
   return <Row>
     <Col xs="12" md="11" className={'mt-4'}>
       <Card>
         <JsonHeader
-          getData={getJsonData}
+          callApi={callApi}
           filterKey={filterKey}
           setFilterKey={setFilterKey}
           filterData={filterData}
@@ -86,9 +88,8 @@ const JsonUtility = () => {
         <CardBody>
           <Col xs="12" md="12">
             {/*<Input type="textarea" name="textarea-input" id="textarea-input" rows="20" value={dataState}*/}
-            <div id={'reactTest'}>
+            <div id={'renderJson'} />
 
-            </div>
             {/*<pre>*/}
             {/*  {renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }, {*/}
             {/*  decodeEntities:false*/}

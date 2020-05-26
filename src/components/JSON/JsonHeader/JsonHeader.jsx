@@ -33,7 +33,7 @@ const JsonHeader = (props) => {
 
   return <CardHeader>
     <Row>
-      <Col xs="12" md="7">
+      <Col xs="12" md="6">
         <InputGroup>
           <InputGroupButtonDropdown
             className={'fitheight'}
@@ -54,12 +54,12 @@ const JsonHeader = (props) => {
           <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onChange={(e)=>{setInputUrl(e.target.value)}}name="input1-group3" placeholder="URL"/>
           <InputGroupAddon title={'Hit URL'} className={'fitheight'} addonType="append">
             <Button type="button" onClick={() => {
-              props.getData()
+              props.callApi(inputUrl)
             }} color="primary"><i className="fa fa-arrow-right"></i></Button>
           </InputGroupAddon>
           <InputGroupAddon title={'Refersh API Data'} className={'fitheight ml-1'}>
             <Button type="button" onClick={() => {
-              props.getData()
+              props.callApi(inputUrl)
             }} color="primary"><i className="fa fa-refresh"></i></Button>
           </InputGroupAddon>
           <InputGroupAddon title={'Add URL'} className={'fitheight ml-1'}>
