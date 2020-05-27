@@ -1,7 +1,8 @@
 .dynamicTable {
   max-width: 700px;
   max-height: 400px;
-  left: -133px !important;
+  left: -17% !important;
+  //right: 75% !important;
   top :113px;
 }
 
@@ -13,3 +14,39 @@
   left: initial !important;
   right: 8%;
 }
+
+
+:global(#outerMyFundTootip) {
+  right: -18px;
+  left: auto;
+  transform: none;
+}
+
+.showToolTip {
+  display: block;
+}
+
+.checkMyFund {
+  font: var(--theme-b2-font-medium);
+  text-align: start;
+}
+
+.horizontalBar {
+  height: 0.125em;
+  background-color: var(--color-black);
+  margin-bottom: var(--space-025);
+  margin-top: var(--space-025);
+}
+
+.myFundRedirectLink {
+  font: var(--theme-b2-font-medium);
+  text-align: start;
+}
+
+.iconTooltip {
+  display: inline-block;
+  position: relative;
+}
+
+
+

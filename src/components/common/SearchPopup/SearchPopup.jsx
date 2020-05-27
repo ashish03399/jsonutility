@@ -14,13 +14,16 @@ const SearchPopup = props => {
       <Button id="Popover1" type="button">
         {popoverOpen ? 'Hide' : 'Show'}
       </Button>
-      <Popover popperClassName={'dynamicTable'} innerClassName={'dynamicTableOverFlow'} placement="bottom" isOpen={popoverOpen} target="Popover1"
-               toggle={toggle}>
-        <PopoverHeader>Popover Title</PopoverHeader>
-        <PopoverBody>
-          <DynamicTable jsonData={props.jsonData}></DynamicTable>
-        </PopoverBody>
-      </Popover>
+      <div>
+        <Popover popperClassName={'dynamicTable'} innerClassName={'dynamicTableOverFlow'} placement="bottom"
+                 isOpen={popoverOpen} target="Popover1"
+                 toggle={toggle}>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>
+            <DynamicTable jsonData={props.jsonData}></DynamicTable>
+          </PopoverBody>
+        </Popover>
+      </div>
     </div>
   );
 }

@@ -34,35 +34,45 @@ import { getApi } from '../../thirdParty/axios/axisConfig'
 import SearchPopup from "../common/SearchPopup/SearchPopup";
 import JsonHeader from "./JsonHeader/JsonHeader";
 import JsonSubHeader from "./JsonSubHeader/JsonSubHeader";
+import {BEAUTIFY, CLEAR, FORMAT, REMOVE_WHITE_SPACE} from "./JsonSubHeader/constants";
 
 var beautify = require('js-beautify').js;
 
 
-
+const isAPiDebugMode = false;
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
   const [error, setError] = useState();
   const [filteredData, setfilteredData] = useState();
   const [filterKey, setFilterKey] = useState();
+  const [addOnType, setAddOnType] = useState();
   const callApi = (inputUrl) => {
+
+    if(isAPiDebugMode){ // TODO: WILL REMOVE
+      setJsonData(data);
+      renderjson.set_show_to_level(4)
+      renderjson.set_depth_identifier(' > ')
+      setAddOnType(FORMAT);
+      debugger
+      document.getElementById("renderJson").appendChild(
+        renderjson(data)
+      );
+      return;
+    }
+
     // removing last child
-    setJsonData(data);
-    renderjson.set_show_to_level(4)
-    renderjson.set_depth_identifier(' > ')
-    document.getElementById("renderJson").appendChild(
-      renderjson(data)
-    );
-    // document.getElementById("renderJson").innerHTML = '';
-    // getApi(inputUrl).then((response) => {
-    //   setJsonData(response)
-    //   renderjson.set_show_to_level(4)
-    //   renderjson.set_depth_identifier(' > ')
-    //   document.getElementById("renderJson").appendChild(
-    //     renderjson(response)
-    //   );
-    // }).catch(e => {
-    //   setError(e);
-    // })
+    document.getElementById("renderJson").innerHTML = '';
+    getApi(inputUrl).then((response) => {
+      setJsonData(response)
+      setAddOnType(FORMAT);
+      renderjson.set_show_to_level(4)
+      renderjson.set_depth_identifier(' > ')
+      document.getElementById("renderJson").appendChild(
+        renderjson(response)
+      );
+    }).catch(e => {
+      setError(e);
+    })
   }
 
   const filterData = () => {
@@ -73,6 +83,25 @@ const JsonUtility = () => {
     }
   }
 
+  const addOnAction = (type) => {
+    setAddOnType(type)
+    const textt = document.getElementById('textarea-input').value;
+    if(type === BEAUTIFY){
+      document.getElementById('textarea-input').value = JSON.stringify(textt, null, 2)
+    }else if(type === CLEAR) {
+      document.getElementById('textarea-input').value = ''
+    } else if (type === REMOVE_WHITE_SPACE){
+      document.getElementById('textarea-input').value = JSON.stringify()
+    }
+  }
+
+  const getInputText = (addOnType) => {
+    return {
+      [BEAUTIFY]: JSON.stringify(jsonData, null, 2),
+      [REMOVE_WHITE_SPACE]: JSON.stringify(jsonData),
+      [CLEAR]:''
+    }[addOnType]
+  }
   return <Row>
     <Col xs="12" md="11" className={'mt-4'}>
       <Card>
@@ -84,11 +113,18 @@ const JsonUtility = () => {
           filteredData={filteredData}
           dataState={jsonData}
         />
-        <JsonSubHeader />
+        <JsonSubHeader addOnAction={addOnAction} />
         <CardBody>
           <Col xs="12" md="12">
-            {/*<Input type="textarea" name="textarea-input" id="textarea-input" rows="20" value={dataState}*/}
-            <div id={'renderJson'} />
+            {<div id={'renderJson'} contenteditable="true"  className={addOnType === FORMAT ? 'showFormatter' : 'hideFormatter'}/>}
+            {/*{addOnType !== FORMAT && <Input type="textarea" name="textarea-input" id="textarea-input" rows="20" />}*/}
+
+            {/*</Input>}*/}
+            {addOnType !== FORMAT && <div name="jsonDiv" contenteditable="true"  id="textarea-input" rows="20">
+            {/*  <pre>{getInputText(addOnType)}</pre>*/}
+            </div>}
+
+
 
             {/*<pre>*/}
             {/*  {renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }, {*/}

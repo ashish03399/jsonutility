@@ -1,1 +1,197 @@
 // Variable overrides
+:root {
+  --line-height: 1.5;
+  --heading-font-size: 1.9em;
+
+  /** colors - Dont add new ones. */
+  --color-black: #000;
+  --color-black-1: #222;
+  --color-black-2: #050f28;
+  --color-blue: #455095;
+  --color-dark-grey: #444;
+  --color-grey-light: #f7f7f7;
+  --color-dark-grey-1: #666;
+  --color-lightest-grey-text-accessibility: #757575;
+  --color-dark-grey-2: #ccc;
+  --color-dark-grey-3: #656576;
+  --color-dark-grey-4: #6d6d6d;
+  --color-dark-grey-5: #d6d6d6;
+  --color-pale-grey: #e7e7ea;
+  --color-very-pale-grey: #e4e4e4;
+  --color-grey: #fafafa;
+  --color-grey1: #333;
+  --color-grey2: #666;
+  --color-grey3: #4a4a4a;
+  --color-medium-grey: #cbcbcb;
+  --color-light-grey: #cfcfcf;
+  --color-light-grey1: #ccc;
+  --color-light-grey3: #fefdf4;
+  --color-light-grey4: #f7f7f8;
+  --color-light-grey5: #595959;
+  --color-light-grey6: #d8d8d8;
+  --color-light-grey7: #eaeaea;
+  --color-light-grey8: #d9d9d9;
+  --color-light-grey9: #eef2f3;
+  --color-light-grey10: #f8f5f3;
+  --color-light-grey11: #979797;
+  --color-light-grey12: #888;
+  --color-light-grey13: #9b9b9b;
+  --color-light-grey14: #f2f2f2;
+  --color-light-grey15: #e2e2e2;
+  --color-light-grey16: #aad7d9;
+  --color-dark-red: #d0021b;
+  --color-light-red: #f00;
+  --color-orange: #ff6a23;
+  --color-dark-orange: #ef9269;
+  --color-purple: #273691;
+  --color-purple-1: #49176d;
+  --color-purple-2: #0040e6;
+  --color-purple-3: #bd10e0;
+  --color-tundora: #444;
+  --color-white: #fff;
+  --color-light-white-1: #fffae9;
+  --color-brown: #594d43;
+  --color-yellow: #f6df4c;
+  --color-yellow-1: #ffce36;
+  --color-yellow1: #ffc;
+  --color-yellow-2: #d67d00;
+  --color-light-blue: #e3f3fd;
+  --color-blue-1: #f5fafe;
+  --color-blue-2: #4fb1f3;
+  --color-blue-3: #00aef0;
+  --color-blue-4: #1773c8;
+  --color-blue-5: #65c8f2;
+  --color-blue-6: #003bde;
+  --color-green-1: #539610;
+  --color-green-2: #008a00;
+  --color-green-3: #108000;
+
+  /** Dont use or add new colors. The above will be removed after the pages with old styles are updated **/
+
+  /** font-size text */
+  --font-size-text-largest: 50px;
+  --font-size-text-xx-large: 28px;
+  --font-size-text-extra-large: 20px;
+  --font-size-text-extra-medium: 18px;
+  --font-size-text-extra-small: 10px;
+  --font-size-text-inter-small: 11px;
+  --font-size-text-large: 16px;
+  --font-size-text-x-large: 24px;
+  --font-size-text-medium: 14px;
+  --font-size-text-small: 12px;
+  --font-size-text-xsmall: 8px;
+  --font-size-text-xxx-medium: 22px;
+  --font-size-text-xxx-large: 36px;
+
+  /**  font-size override for basscss */
+  --h1: 30px;
+  --h2: 25px;
+  --h3: 21px;
+  --h4: 19px;
+  --h5: 17px;
+  --h6: 16px;
+
+  /**  margin override for basscss, go to https://www.npmjs.com/package/basscss-margin for spacing utils info */
+  --space-1: 0.5rem;
+  --space-125: 1.25rem;
+  --space-15: 1.5rem;
+  --space-2: 1rem;
+  --space-25: 2.5rem;
+  --space-3: 2rem;
+  --space-35: 3.5rem;
+  --space-4: 4rem;
+  --space-03: 3rem;
+
+  /** line-height */
+  --line-height-small: 0.8;
+  --line-height-normal: 1;
+  --line-height-medium: 1.18;
+  --line-height-large: 1.2;
+  --line-height-extra-large: 1.4;
+  --line-height-xx-large: 1.6;
+  --line-height-xxx-large: 1.86;
+  --line-height-x-large: 1.36;
+
+  /** font-variations */
+  --font-text-xsmall: 500 var(--font-size-text-xsmall) var(--theme-family-sans);
+
+  /** font-weight */
+  --font-weight-bold: 800;
+  --font-weight-medium: 600;
+  --font-weight-light: 500;
+  --font-weight-normal: 400;
+  --font-weight-small: 300;
+  --font-weight-extra-small: 100;
+
+  /** Border-radius override for basscss */
+  --border-radius: var(--theme-border-radius);
+
+  /** Border-radius */
+  --border-radius-medium: 8px;
+  --border-radius-thin: 5px;
+
+  /** Border-width override for basscss */
+  --border-width: var(--theme-border-width);
+
+  /** Border-width */
+  --border-width-thin: 2px;
+  --border-width-medium: 8px;
+
+  /** Tooltip width */
+  --tool-tip-width-small: 120px;
+  --tool-tip-width-medium: 176px;
+  --tool-tip-width-large: 240px;
+
+  /** Border-color override for basscss */
+  --border-color: var(--color-stroke-basic);
+
+  /** Border-style override for basscss */
+  --border-style: var(--theme-border-style);
+  --border-style-thin: var(--border-width-thin) var(--border-style)
+  var(--color-pale-grey);
+
+  /** Max viewport width */
+  --max-viewport-width: 81rem;
+
+  /** z-index */
+  --custom-select-selectfilters-zindex: 9999;
+  --custom-select-breadcrumb-zindex: 9999;
+  --custom-select-instantoffer-zindex: 10000;
+  --fixed-element-component-zindex: 10;
+  --header-zIndex: 1020;
+  --mobile-header-zIndex: 1001;
+  --nav-zIndex: 1001;
+  --opinionLab-zIndex: 100;
+
+  /** fav button border radius */
+  --fav-button-border-radius: 64px;
+
+  /** Custom spacing */
+  --space-025: 0.25rem;
+  --space-075: 0.75rem;
+  --space-125: 1.25rem;
+  --space-175: 1.75rem;
+  --space-1875: 1.875rem;
+  --space-225: 2.25rem;
+  --space-275: 2.75rem;
+  --space-325: 3.25rem;
+  --space-375: 3.75rem;
+
+  /** focus border */
+  --focus-outline-style: 1px dashed #757575;
+  --focus-outline-style-white: 1px dashed #fff;
+  --focus-outline-offset: 3px;
+
+  /** text alignment **/
+  --text-align-left: left;
+
+  /** slick dot size **/
+  --slick-dot-button-size: 0.5rem;
+
+  /** Border radius **/
+  --border-radius: 8px;
+
+  /** Checkbox disabled color **/
+  --checkbox-disabled-color: #bdbdbd;
+}
+
