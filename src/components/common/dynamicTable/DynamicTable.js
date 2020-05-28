@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Badge, CardBody, Pagination, PaginationItem, PaginationLink, Table} from "reactstrap";
-
+import styles from './dynamicTable.scss'
 
 const DynamicTable = props => {
   const tableContent = props.jsonData?.map((data) => {
     return <tr>
-      <td>{data?.path?.slice(1,data.path.length-1).join('-->')}</td>
-      <td>{data?.path[data.path.length-1]}</td>
-      <td>{''+JSON.stringify(data?.value)}</td>
+      <td className={'single-line'}>{data?.path?.slice(1,data.path.length-1).join('.')}</td>
+      <td className={'single-line'}>{data?.path[data.path.length-1]}</td>
+      <td className={'jsonValue'}>{''+JSON.stringify(data?.value)}</td>
     </tr>
 
 
@@ -31,4 +31,4 @@ const DynamicTable = props => {
 
 DynamicTable.propTypes = {};
 
-export default DynamicTable;
+export default React.memo(DynamicTable);

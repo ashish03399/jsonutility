@@ -1,19 +1,57 @@
-.dynamicTable {
+.popverHeader {
+  font-weight: 500;
+  color: black;
+  display: flex;
+}
+
+
+.tooltip1 {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip1 .tooltiptext {
+  visibility: visible;
   max-width: 700px;
-  max-height: 400px;
-  left: -17% !important;
-  //right: 75% !important;
-  top :113px;
+  max-height: 500px;
+  background-color: #fff;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 142%;
+  margin-left: -60px;
+  opacity: 1;
+  transition: opacity 0.3s;
+  border-color: palevioletred;
+  border-width: 2px;
+  border-style: solid;
 }
 
-.dynamicTableOverFlow {
-  overflow:auto;
+.tooltip-bottom {
+  top: 135%;
+  right: 5%;
+  margin-left: -60px;
 }
 
-.dynamicTable > .popover-inner + .arrow {
-  left: initial !important;
-  right: 8%;
+.tooltip-bottom::after {
+  content: "";
+  position: absolute;
+  top:-19px;
+  transform: scale(2.5) rotateZ(180deg);
+  margin-left: -5px;
+  right: 21px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: palevioletred transparent transparent transparent;
 }
+
+.table-responsive {
+  max-height: 450px;
+}
+
 
 
 :global(#outerMyFundTootip) {
@@ -26,27 +64,7 @@
   display: block;
 }
 
-.checkMyFund {
-  font: var(--theme-b2-font-medium);
-  text-align: start;
+.hideToolTip {
+  display: none;
 }
-
-.horizontalBar {
-  height: 0.125em;
-  background-color: var(--color-black);
-  margin-bottom: var(--space-025);
-  margin-top: var(--space-025);
-}
-
-.myFundRedirectLink {
-  font: var(--theme-b2-font-medium);
-  text-align: start;
-}
-
-.iconTooltip {
-  display: inline-block;
-  position: relative;
-}
-
-
 

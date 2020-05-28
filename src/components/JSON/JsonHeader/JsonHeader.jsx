@@ -16,11 +16,12 @@ import {JSON_URLS} from "./Constants";
 import {getLocalStorage, setLocalStorage} from "../../../utils/LocalStorageUtils";
 
 const JsonHeader = (props) => {
+  console.log('Ashish2112-->',props.jsonData);
   const [showUrl, setShowUrl] = useState(false);
   const [inputUrl, setInputUrl] = useState('');
   const [showJsonSearchType, setShowJsonSearchType] = useState(false);
   const addedUrl = getLocalStorage(JSON_URLS) || [];
-
+window.setFilterKey = props.setFilterKey;
   const addUrlInlocalStorage = () => {
     const isUrlAdded = addedUrl.filter(urlObj=>{
       return urlObj.url === inputUrl;
@@ -30,6 +31,8 @@ const JsonHeader = (props) => {
       setLocalStorage(JSON_URLS, addedUrl);
     }
   }
+
+  console.log('props.filterKey', props.filterKey)
 
   return <CardHeader>
     <Row>
@@ -67,7 +70,7 @@ const JsonHeader = (props) => {
           </InputGroupAddon>
         </InputGroup>
       </Col>
-      <Col xs="12" md="4">
+      {props.jsonData && <Col xs="12" md="4">
         <InputGroup>
           <InputGroupButtonDropdown className={'fitheight'} addonType="prepend"
                                     isOpen={showJsonSearchType}
@@ -94,9 +97,9 @@ const JsonHeader = (props) => {
           </InputGroupAddon>
         </InputGroup>
 
-      </Col>
+      </Col>}
       <Col xs="12" md="2">
-        {props.filteredData && <SearchPopup jsonData={props.filteredData}/>}
+        {props.filteredData?.length > 0 && <SearchPopup filterKey={props.filterKey} jsonData={props.filteredData}/>}
       </Col>
     </Row>
   </CardHeader>
@@ -105,4 +108,5 @@ const JsonHeader = (props) => {
 
 JsonHeader.propTypes = {};
 
-export default JsonHeader;
+export default React.memo(JsonHeader);
+

@@ -45,4 +45,4 @@ JsonSubHeader.propTypes = {
 
 };
 
-export default JsonSubHeader;
+export default React.memo(JsonSubHeader);

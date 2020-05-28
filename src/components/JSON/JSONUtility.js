@@ -35,20 +35,27 @@ import SearchPopup from "../common/SearchPopup/SearchPopup";
 import JsonHeader from "./JsonHeader/JsonHeader";
 import JsonSubHeader from "./JsonSubHeader/JsonSubHeader";
 import {BEAUTIFY, CLEAR, FORMAT, REMOVE_WHITE_SPACE} from "./JsonSubHeader/constants";
+import JsonBody from "./JSONBody/JSONBody";
 
 var beautify = require('js-beautify').js;
 
 
-const isAPiDebugMode = false;
+const isAPiDebugMode = true;
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
   const [error, setError] = useState();
   const [filteredData, setfilteredData] = useState();
   const [filterKey, setFilterKey] = useState();
   const [addOnType, setAddOnType] = useState();
+  const resetAllData = () => {
+    setfilteredData(null);
+    setError(null);
+    setAddOnType(null);
+    setFilterKey('');
+  }
   const callApi = (inputUrl) => {
-
-    if(isAPiDebugMode){ // TODO: WILL REMOVE
+    resetAllData();
+    if(isAPiDebugMode && !inputUrl){ // TODO: WILL REMOVE
       setJsonData(data);
       renderjson.set_show_to_level(4)
       renderjson.set_depth_identifier(' > ')
@@ -111,18 +118,19 @@ const JsonUtility = () => {
           setFilterKey={setFilterKey}
           filterData={filterData}
           filteredData={filteredData}
-          dataState={jsonData}
+          jsonData={jsonData}
         />
         <JsonSubHeader addOnAction={addOnAction} />
         <CardBody>
           <Col xs="12" md="12">
-            {<div id={'renderJson'} contenteditable="true"  className={addOnType === FORMAT ? 'showFormatter' : 'hideFormatter'}/>}
+            <JsonBody addOnType={addOnType}/>
+
             {/*{addOnType !== FORMAT && <Input type="textarea" name="textarea-input" id="textarea-input" rows="20" />}*/}
 
             {/*</Input>}*/}
-            {addOnType !== FORMAT && <div name="jsonDiv" contenteditable="true"  id="textarea-input" rows="20">
+            {/*{addOnType !== FORMAT && <div name="jsonDiv" contenteditable="true"  id="jsonDiv" rows="20">*/}
             {/*  <pre>{getInputText(addOnType)}</pre>*/}
-            </div>}
+            {/*</div>}*/}
 
 
 
@@ -137,7 +145,7 @@ const JsonUtility = () => {
             {/*</pre>*/}
             {/*<div>*/}
             {/*  <ReactJson src={{ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }} />*/}
-            {/*</div>*/}
+            {/*</div>}*/}
             {/*  <pre>{ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }</pre>*/}
             {/*final for format --> <pre>{JSON.stringify(data, , 2)}</pre>*/}
 
