@@ -16,7 +16,6 @@ import {JSON_URLS} from "./Constants";
 import {getLocalStorage, setLocalStorage} from "../../../utils/LocalStorageUtils";
 
 const JsonHeader = (props) => {
-  console.log('Ashish2112-->',props.jsonData);
   const [showUrl, setShowUrl] = useState(false);
   const [inputUrl, setInputUrl] = useState('');
   const [showJsonSearchType, setShowJsonSearchType] = useState(false);
@@ -31,9 +30,6 @@ window.setFilterKey = props.setFilterKey;
       setLocalStorage(JSON_URLS, addedUrl);
     }
   }
-
-  console.log('props.filterKey', props.filterKey)
-
   return <CardHeader>
     <Row>
       <Col xs="12" md="6">
@@ -54,7 +50,7 @@ window.setFilterKey = props.setFilterKey;
               )}
             </DropdownMenu>
           </InputGroupButtonDropdown>
-          <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onChange={(e)=>{setInputUrl(e.target.value)}}name="input1-group3" placeholder="URL"/>
+          <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onChange={(e)=>{setInputUrl(e.target.value)}}name="input1-group3" placeholder="http://"/>
           <InputGroupAddon title={'Hit URL'} className={'fitheight'} addonType="append">
             <Button type="button" onClick={() => {
               props.callApi(inputUrl)
