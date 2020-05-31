@@ -18,7 +18,7 @@ const SearchPopup = props => {
     return <PopoverBody>No Data Found</PopoverBody>
   }
   return (
-    <div data-locator={"SearchPopup"} className={'tooltip1'}>
+    <div data-locator={"SearchPopup"} className={'tooltip1 searchPopButton'}>
       <Button id="Popover1" onClick={() => {
         setPopoverOpen(!popoverOpen)
       }} type="button" color="primary">

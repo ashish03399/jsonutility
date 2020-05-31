@@ -9,7 +9,7 @@ import {
   CardBody,
   Card,
   Col,
-  Row,
+  Row, ListGroupItem,
 } from 'reactstrap';
 import styles from './styles.scss'
 import {getApi} from '../../thirdParty/axios/axisConfig'
@@ -58,7 +58,10 @@ const JsonUtility = () => {
 
   const callApi = (inputUrl) => {
     resetAllData();
-
+    // setError({message:"asdasd"});
+    // setTimeout(()=>{
+    //   setError(null);
+    // },10000)
     if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
       formatData(data);
       return;
@@ -74,6 +77,9 @@ const JsonUtility = () => {
     }).catch(e => {
       setApiStatus(FETCH_JSON_DATA_FAILED);
       setError(e);
+      setTimeout(()=>{
+        setError();
+      }, 3000)
     })
   }
 
@@ -123,7 +129,7 @@ const JsonUtility = () => {
   }
 
   return <Row className={'ml-0 mr-0'}>
-    <Col xs="12" md="12" className={'mt-4'}>
+    <Col xs="12" md="12" className={'mt-2'}>
       <Card>
         <JsonHeader
           callApi={callApi}
@@ -135,6 +141,7 @@ const JsonUtility = () => {
           filteredKey={filteredKey}
           apiStatus={apiStatus}
         />
+        {error && <ListGroupItem className={'errorAnimation'} action color="danger">{JSON.stringify(error.message)}</ListGroupItem>}
         <JsonSubHeader
           addOnAction={addOnAction}
           addOnType={addOnType}/>

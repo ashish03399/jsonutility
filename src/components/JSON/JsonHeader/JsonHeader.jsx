@@ -17,6 +17,7 @@ import {JSON_URLS} from "./Constants";
 import {getLocalStorage, setLocalStorage} from "../../../utils/LocalStorageUtils";
 import {FETCH_JSON_DATA} from "../Constant";
 import {validateURL} from "../../../utils/validateUrl";
+import style from './JSONHeader.scss'
 
 const JsonHeader = (props) => {
   const [showUrl, setShowUrl] = useState(false);
@@ -44,7 +45,7 @@ const JsonHeader = (props) => {
     }
 
   }
-  return <CardHeader>
+  return <CardHeader className={'jsonheader'}>
     <Row>
       <Col xs="12" md="6">
         <InputGroup>
@@ -129,7 +130,7 @@ const JsonHeader = (props) => {
 JsonHeader.propTypes = {
   apiStatus: PropTypes.number,
   filteredKey: PropTypes.string,
-  filteredData: PropTypes.object
+  filteredData: PropTypes.array
 };
 
 export default React.memo(JsonHeader);

@@ -4,8 +4,8 @@ import {Badge, CardBody, Pagination, PaginationItem, PaginationLink, Table} from
 import styles from './dynamicTable.scss'
 
 const DynamicTable = props => {
-  const tableContent = props.jsonData?.map((data) => {
-    return <tr>
+  const tableContent = props.jsonData?.map((data, index) => {
+    return <tr key={index}>
       <td className={'single-line'}>{data?.path?.slice(1,data.path.length-1).join('.')}</td>
       <td className={'single-line'}>{data?.path[data.path.length-1]}</td>
       <td className={'jsonValue'}>{''+JSON.stringify(data?.value)}</td>

@@ -11,7 +11,7 @@ const JsonSubHeader = (props) => {
   const {addOnAction, addOnType} = props;
   return <CardFooter className={'subHeader'}>
     <Row>
-      <Col xs="6" sm="4" md="1" xl="6">
+      <Col xs="6" sm="12" md="6" xl="6">
         <ButtonGroup size="sm">
           {subHeaderActions.map(action => {
             return <Button key={action.key} title={action.title}
