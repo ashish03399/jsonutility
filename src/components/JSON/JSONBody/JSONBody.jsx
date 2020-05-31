@@ -116,7 +116,7 @@ const JsonBody = props => {
         text={getJsonData(props.jsonData, BEAUTIFY)}
         mode={modes[3]}
         modes={modes}
-        indentation={4}
+        // indentation={4}
         onChangeText={(text) => {
           handleInputFromBeautify(text)
         }}
@@ -134,7 +134,6 @@ const JsonBody = props => {
         name="textarea-input"
         id="textarea-input11"
         spellCheck="false"
-        rows="20"
         placeholder="Paste your json here..."
       />}
     </React.Fragment>

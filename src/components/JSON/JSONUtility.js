@@ -58,10 +58,6 @@ const JsonUtility = () => {
 
   const callApi = (inputUrl) => {
     resetAllData();
-    // setError({message:"asdasd"});
-    // setTimeout(()=>{
-    //   setError(null);
-    // },10000)
     if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
       formatData(data);
       return;
@@ -146,7 +142,7 @@ const JsonUtility = () => {
           addOnAction={addOnAction}
           addOnType={addOnType}/>
         <CardBody className={'bodySroll'}>
-          <Col xs="12" md="12">
+          <Col xs="12" md="12" className={'jsonBodyContainer'}>
             <JsonBody
               jsonData={jsonData}
               jsonDataString={jsonDataString}
