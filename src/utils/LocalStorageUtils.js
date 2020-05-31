@@ -14,7 +14,12 @@ const setLocalStorage = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
+const removeKey = (key) => {
+  localStorage.removeItem(key);
+};
+
 module.exports = {
   getLocalStorage,
   setLocalStorage: isGlobalThisExists(setLocalStorage),
+  removeKey: isGlobalThisExists(removeKey),
 }

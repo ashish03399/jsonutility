@@ -1,3 +1,21 @@
 .jsonheader {
   padding: 0.65rem 0.65rem 0.25rem;
 }
+
+.deleteIcon:hover {
+  background-color: #ffffff;
+  border-color: #63c2de;
+  border-radius: .25rem;
+}
+
+.deleteIcon {
+  background-color: #63c2de;
+  border-color: black;
+  border-radius: .01rem;
+  color: white;
+}
+
+.resetAll {
+  background: #fff;
+  color: #20a8d8 !important;
+}

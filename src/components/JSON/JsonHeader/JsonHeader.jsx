@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import SearchPopup from "../../common/SearchPopup/SearchPopup";
 import {JSON_URLS} from "./Constants";
-import {getLocalStorage, setLocalStorage} from "../../../utils/LocalStorageUtils";
+import {getLocalStorage, setLocalStorage, removeKey} from "../../../utils/LocalStorageUtils";
 import {FETCH_JSON_DATA} from "../Constant";
 import {validateURL} from "../../../utils/validateUrl";
 import style from './JSONHeader.scss'
@@ -24,7 +24,11 @@ const JsonHeader = (props) => {
   const [inputUrl, setInputUrl] = useState('');
   const [isUrlValid, setIsUrlValid] = useState();
   const [showJsonSearchType, setShowJsonSearchType] = useState(false);
-  const addedUrl = getLocalStorage(JSON_URLS) || [];
+  let addedUrl = getLocalStorage(JSON_URLS) || [];
+  const firstElementkey = addedUrl && addedUrl[0]?.key;
+  if (firstElementkey && firstElementkey !== 'reset') {
+    addedUrl.unshift({key: 'reset', url: 'reset all'})
+  }
   window.setFilterKey = props.setFilterKey;
   const addUrlInlocalStorage = () => {
     const isUrlAdded = addedUrl.filter(urlObj => {
@@ -45,6 +49,14 @@ const JsonHeader = (props) => {
     }
 
   }
+
+  const removeAllUrls = () => {
+    var r = window.confirm("Are you confirm want to delete all URLs?");
+    if (r == true) {
+      removeKey(JSON_URLS);
+      addedUrl = undefined;
+    }
+  }
   return <CardHeader className={'jsonheader'}>
     <Row>
       <Col xs="12" md="6">
@@ -60,11 +72,19 @@ const JsonHeader = (props) => {
               URL
             </DropdownToggle>
             <DropdownMenu className={showUrl ? 'show' : ''}>
-              {addedUrl?.map((item) =>
-                <DropdownItem key={item?.url} onClick={() => {
-                  setInputUrl(item?.url)
-                  callApiToFetchJSONDATA(item?.url);
-                }}>{item?.url} </DropdownItem>
+              {addedUrl?.map((item) => {
+                  if (item?.key === 'reset') {
+                    return <a tabIndex="-1" onClick={() => {
+                      removeAllUrls();
+                    }
+                    } className="dropdown-header resetAll">Reset all</a>
+                  } else {
+                    return <DropdownItem key={item?.url} header={item?.key === 'reset'} onClick={() => {
+                      setInputUrl(item?.url)
+                      callApiToFetchJSONDATA(item?.url);
+                    }}>{item?.url}</DropdownItem>
+                  }
+                }
               )}
             </DropdownMenu>
           </InputGroupButtonDropdown>
