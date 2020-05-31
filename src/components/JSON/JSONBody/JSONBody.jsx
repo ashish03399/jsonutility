@@ -64,7 +64,7 @@ const JsonBody = props => {
           });
           try {
             value = JSON.parse(value);
-          }catch(e){
+          } catch (e) {
             console.log(e);
           }
         }
@@ -91,14 +91,18 @@ const JsonBody = props => {
   // typeof props.jsonDataString === 'object' ? JSON.stringify(props.jsonDataString) : props.jsonDataString
 
   const getJsonData = (json, src) => {
+    if(typeof json === 'string' && json && json.length > 100){
+      try{
+        json = JSON.parse(json)
+      }catch(e){}
+    }
     if (json) {
       if (typeof json === 'object') {
         // return src === BEAUTIFY ? JSON.stringify(json, null, 2) : JSON.stringify(json)
         return {
-          [BEAUTIFY] : () => JSON.stringify(json, null, 2),
-          [REMOVE_WHITE_SPACE] : () => JSON.stringify(json)
+          [BEAUTIFY]: () => JSON.stringify(json, null, 2),
+          [REMOVE_WHITE_SPACE]: () => JSON.stringify(json)
         }[src]();
-
       }
       return json;
     }
@@ -131,6 +135,9 @@ const JsonBody = props => {
         value={getJsonData(props.jsonDataString, REMOVE_WHITE_SPACE)}
         onChange={handleInputValue}
         onBlur={handleFinalValue}
+        onFocus={() => {
+          console.log('Alert()')
+        }}
         name="textarea-input"
         id="textarea-input11"
         spellCheck="false"

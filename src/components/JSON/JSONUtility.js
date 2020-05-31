@@ -80,9 +80,8 @@ const JsonUtility = () => {
   }
 
   const filterData = () => {
-    const filterTT = filterKey || 'MilitaryProgramId';
     if (jsonData) {
-      const tt = jsonpath.nodes(jsonData, `$..${filterTT}`);
+      const tt = jsonpath.nodes(jsonData, `$..${filterKey}`);
       setFilteredKey(filterKey);
       setfilteredData(tt);
     }
