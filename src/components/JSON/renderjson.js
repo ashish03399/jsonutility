@@ -107,7 +107,7 @@ export var module, window, define, renderjson=(function() {
     return true; }
   var text = function(txt) { return document.createTextNode(txt) };
   var div = function() { return document.createElement("div") };
-  var span = function(classname, title) { var s = document.createElement("span");
+  var span = function(classname, title, options) { var s = document.createElement("span");
     if (classname) s.className = classname;
     if(title){
       s.title = title
@@ -120,7 +120,11 @@ export var module, window, define, renderjson=(function() {
       // s.style.cssText = 'color: green;'
     }else if(classname === 'indentPlaceHolder'){
       // s.style.cssText = 'opacity: 0.5; color:red; show_level'
-      s.className = `indentPlaceHolder_${show_level_last}`
+      s.className = `indentPlaceHolder`
+    }
+    s.name='Ashish';
+    if(spanClickEvent){
+      s.onchange = spanClickEvent;
     }
     return s; };
   var A = function A(txt, classname, callback) { var a = document.createElement("a");
@@ -233,6 +237,10 @@ export var module, window, define, renderjson=(function() {
   level.toLowerCase() === "all" ? Number.MAX_VALUE
     : level;
     return renderjson; };
+  var spanClickEvent;
+  renderjson.setClickEvent = function(fn) {
+    spanClickEvent = fn;
+  }
   renderjson.set_max_string_length = function(length) { renderjson.options.max_string_length = typeof length == "string" &&
   length.toLowerCase() === "none" ? Number.MAX_VALUE
     : length;

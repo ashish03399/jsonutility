@@ -14,6 +14,8 @@ export default class JSONEditorReact extends Component {
     const options = Object.assign({}, this.props);
     delete options.json;
     delete options.text;
+    options.mainMenuBar = false;
+    options.mode = 'code';
 
     this.jsoneditor = new JSONEditor(this.container, options);
 

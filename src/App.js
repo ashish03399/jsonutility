@@ -24,6 +24,7 @@ class App extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route path="/500" name="" render={props => <Page500 {...props}/>} />
+              <Route path="/json" name="" render={props => <JsonUtility {...props}/>} />
               <Route path="/" name="" render={props => <JsonUtility {...props}/>} />
             </Switch>
           </React.Suspense>

@@ -3,54 +3,37 @@ import PropTypes from 'prop-types';
 import ReactJson from 'react-json-view'
 import * as jsonpath from 'jsonpath';
 import {renderjson} from './renderjson';
-import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
-import JSONPretty from 'react-json-pretty';
-
 
 import {data} from '../../thirdParty/axios/mockData/data.js'
 import {
-  UncontrolledCollapse,
-  Button,
   CardBody,
   Card,
   Col,
   Row,
-  CardHeader,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Badge,
-  InputGroup,
-  InputGroupButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  InputGroupAddon, CardFooter, ButtonGroup
 } from 'reactstrap';
 import styles from './styles.scss'
 import {getApi} from '../../thirdParty/axios/axisConfig'
-import SearchPopup from "../common/SearchPopup/SearchPopup";
 import JsonHeader from "./JsonHeader/JsonHeader";
 import JsonSubHeader from "./JsonSubHeader/JsonSubHeader";
 import {BEAUTIFY, CLEAR, FORMAT, REMOVE_WHITE_SPACE, SAMPLE_JSON} from "./JsonSubHeader/constants";
 import JsonBody from "./JSONBody/JSONBody";
 import {sample1} from "./SampleJSON/jsonsample";
-
-var beautify = require('js-beautify').js;
-
+import {FETCH_JSON_DATA, FETCH_JSON_DATA_FAILED, FETCH_JSON_DATA_SUCCESS} from "./Constant";
 
 const isAPiDebugMode = true;
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
+  const [apiStatus, setApiStatus] = useState();
   const [jsonDataString, setJsonDataString] = useState();
   const [error, setError] = useState();
   const [filteredData, setfilteredData] = useState();
+  const [filteredKey, setFilteredKey] = useState();
   const [filterKey, setFilterKey] = useState();
   const [addOnType, setAddOnType] = useState();
   const resetAllData = () => {
+    console.log('resetAllDataCalled');
     setJsonData('');
+    setJsonDataString('');
     setfilteredData(null);
     setError(null);
     setAddOnType(null);
@@ -63,6 +46,9 @@ const JsonUtility = () => {
     setJsonDataString(jsonData)
     setAddOnType(FORMAT);
     renderjson.set_show_to_level(4)
+    renderjson.setClickEvent((keyName) => {
+      alert(keyName);
+    })
     renderjson.set_depth_identifier(' > ')
     document.getElementById("renderJson").innerHTML = '';
     document.getElementById("renderJson").appendChild(
@@ -72,16 +58,21 @@ const JsonUtility = () => {
 
   const callApi = (inputUrl) => {
     resetAllData();
+
     if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
       formatData(data);
       return;
     }
 
+    setApiStatus(FETCH_JSON_DATA);
+
     // removing last child
     document.getElementById("renderJson").innerHTML = '';
     getApi(inputUrl).then((response) => {
+      setApiStatus(FETCH_JSON_DATA_SUCCESS);
       formatData(response);
     }).catch(e => {
+      setApiStatus(FETCH_JSON_DATA_FAILED);
       setError(e);
     })
   }
@@ -90,42 +81,47 @@ const JsonUtility = () => {
     const filterTT = filterKey || 'MilitaryProgramId';
     if (jsonData) {
       const tt = jsonpath.nodes(jsonData, `$..${filterTT}`);
+      setFilteredKey(filterKey);
       setfilteredData(tt);
     }
   }
 
-  const addOnAction = (type) => {
-    setAddOnType(type)
-    debugger
-    let obj = {}
-    console.log('addOnAction-->jsonDataString', jsonDataString)
-    obj.data = jsonDataString;
-    // console.log('addOnAction-->jsonData', jsonData)
-    console.log('addOnAction-->jsonData', obj, obj.data)
-    if (type === FORMAT) {
-      formatData(JSON.parse(JSON.stringify(jsonData)));
-    } else if (type === CLEAR) {
-      resetAllData();
-    } else if(type === SAMPLE_JSON) {
-      formatData(sample1)
+  const getParseJson = (json) => {
+    try {
+      json = JSON.parse(json);
+    } catch (e) {
+      json = json.replace(/(\w+:)|(\w+ :)/g, function (matchedStr) {
+        return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
+      });
+      json = JSON.parse(json);
+    } finally {
+      return json;
     }
-    // const textt = document.getElementById('textarea-input').value;
-    // if(type === BEAUTIFY){
-    //   document.getElementById('textarea-input').value = JSON.stringify(textt, null, 2)
-    // }else if(type === CLEAR) {
-    //   document.getElementById('textarea-input').value = ''
-    // } else if (type === REMOVE_WHITE_SPACE){
-    //   document.getElementById('textarea-input').value = JSON.stringify()
-    // }
   }
 
-  const getInputText = (addOnType) => {
-    return {
-      [BEAUTIFY]: JSON.stringify(jsonData, null, 2),
-      [REMOVE_WHITE_SPACE]: JSON.stringify(jsonData),
-      [CLEAR]: ''
-    }[addOnType]
+  const addOnAction = (type) => {
+    debugger
+    if (type === FORMAT) {
+      const parsedJson = getParseJson(jsonData)
+      if(typeof parsedJson === 'object'){
+        formatData(getParseJson(jsonData));
+      }else{
+        alert('Invalid JSON')
+      }
+
+      // formatData(jsonData);
+    } else if (type === CLEAR) {
+      resetAllData();
+    } else if (type === SAMPLE_JSON) {
+      formatData(sample1)
+    } else if (type === REMOVE_WHITE_SPACE) {
+      setJsonDataString(jsonData)
+      setAddOnType(type)
+    }else{
+      setAddOnType(type)
+    }
   }
+
   return <Row className={'ml-0 mr-0'}>
     <Col xs="12" md="12" className={'mt-4'}>
       <Card>
@@ -136,39 +132,21 @@ const JsonUtility = () => {
           filterData={filterData}
           filteredData={filteredData}
           jsonData={jsonData}
+          filteredKey={filteredKey}
+          apiStatus={apiStatus}
         />
-        <JsonSubHeader addOnAction={addOnAction} addOnType={addOnType}/>
+        <JsonSubHeader
+          addOnAction={addOnAction}
+          addOnType={addOnType}/>
         <CardBody className={'bodySroll'}>
           <Col xs="12" md="12">
-              <JsonBody jsonData={jsonData} jsonDataString={jsonDataString} setJsonDataString={setJsonDataString}
-                        setJsonData={setJsonData} addOnType={addOnType}/>
-
-              {/*{addOnType !== FORMAT && <Input type="textarea" name="textarea-input" id="textarea-input" rows="20" />}*/}
-
-              {/*</Input>}*/}
-              {/*{addOnType !== FORMAT && <div name="jsonDiv" contenteditable="true"  id="jsonDiv" rows="20">*/}
-              {/*  <pre>{getInputText(addOnType)}</pre>*/}
-              {/*</div>}*/}
-
-
-              {/*<pre>*/}
-              {/*  {renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }, {*/}
-              {/*  decodeEntities:false*/}
-              {/*}).length}*/}
-              {/*</pre
-            {/*  {renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }, {*/}
-              {/*  decodeEntities:false*/}
-              {/*}).length}*/}
-              {/*</pre>*/}
-              {/*<div>*/}
-              {/*  <ReactJson src={{ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }} />*/}
-              {/*</div>}*/}
-              {/*  <pre>{ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } }</pre>*/}
-              {/*final for format --> <pre>{JSON.stringify(data, , 2)}</pre>*/}
-
-
-              {/*<JSONPretty id="json-pretty" data={data}></JSONPretty>*/}
-            </Col>
+            <JsonBody
+              jsonData={jsonData}
+              jsonDataString={jsonDataString}
+              setJsonDataString={setJsonDataString}
+              setJsonData={setJsonData}
+              addOnType={addOnType}/>
+          </Col>
         </CardBody>
       </Card>
     </Col>

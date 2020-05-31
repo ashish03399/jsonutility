@@ -10,6 +10,13 @@ const SearchPopup = props => {
   useEffect(() => {
     props.jsonData && setPopoverOpen(true)
   }, [props.jsonData]);
+
+  const noDataFound = () =>{
+    setTimeout(()=>{
+      setPopoverOpen(false)
+    }, 2000);
+    return <PopoverBody>No Data Found</PopoverBody>
+  }
   return (
     <div data-locator={"SearchPopup"} className={'tooltip1'}>
       <Button id="Popover1" onClick={() => {
@@ -18,15 +25,16 @@ const SearchPopup = props => {
         {popoverOpen ? 'Hide ToolTip' : 'Show ToolTip'}
       </Button>
       <div className={`tooltiptext tooltip-bottom ${popoverOpen ? 'showToolTip' : 'hideToolTip'}`}>
-        <PopoverHeader className={'popverHeader'}>{`Key : ${props.filterKey}, Total instances: ${props?.jsonData?.length}`}</PopoverHeader>
-        <PopoverBody>
-          <DynamicTable jsonData={props.jsonData}></DynamicTable>
-        </PopoverBody>
+        {props.jsonData?.length > 0 ? <React.Fragment>
+          <PopoverHeader
+            className={'popverHeader'}>{`Key : ${props.filteredKey}, Total instances: ${props?.jsonData?.length}`}</PopoverHeader>
+          <PopoverBody>
+            <DynamicTable jsonData={props.jsonData}></DynamicTable>
+          </PopoverBody>
+        </React.Fragment> : noDataFound()}
       </div>
-
     </div>
-  )
-    ;
+  );
 }
 
 export default React.memo(SearchPopup);
