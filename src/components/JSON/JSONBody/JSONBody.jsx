@@ -91,7 +91,7 @@ const JsonBody = props => {
   // typeof props.jsonDataString === 'object' ? JSON.stringify(props.jsonDataString) : props.jsonDataString
 
   const getJsonData = (json, src) => {
-    if(typeof json === 'string' && json && json.length > 100){
+    if(json && typeof json === 'string' && json.length > 100){
       try{
         json = JSON.parse(json)
       }catch(e){}
@@ -124,8 +124,12 @@ const JsonBody = props => {
         onChangeText={(text) => {
           handleInputFromBeautify(text)
         }}
+        placeHolder={"Paste your json here.."}
         onBlur={() => {
           handleInputOnBlur()
+        }}
+        onError={()=>{
+
         }}
       />}
       {(props.addOnType === REMOVE_WHITE_SPACE) &&

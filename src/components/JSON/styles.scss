@@ -25,10 +25,12 @@
 }
 
 .bodySroll {
-  height: 78vh;
+  height: 82vh;
   overflow: auto;
   padding-right: 0px;
   padding-left: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .errorAnimation {
@@ -68,4 +70,8 @@ animation: fadeIn ease 2s;
 
 .jsonBodyContainer {
   height: -webkit-fill-available;
+}
+
+.ace_line:empty:not(:focus):before{
+  content:'Paste your json here..'
 }

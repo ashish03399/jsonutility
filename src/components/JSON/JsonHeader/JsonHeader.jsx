@@ -29,7 +29,7 @@ const JsonHeader = (props) => {
   if (firstElementkey && firstElementkey !== 'reset') {
     addedUrl.unshift({key: 'reset', url: 'reset all'})
   }
-  window.setFilterKey = props.setFilterKey;
+  window.setFilterKey = props.sestFilterKey;
   const addUrlInlocalStorage = () => {
     const isUrlAdded = addedUrl.filter(urlObj => {
       return urlObj.url === inputUrl;
@@ -41,11 +41,11 @@ const JsonHeader = (props) => {
   }
 
   const callApiToFetchJSONDATA = (url) => {
-    if (true || validateURL(url ? url : inputUrl)) {
+    if (validateURL(url ? url : inputUrl)) {
       setIsUrlValid('true');
       props.callApi(url ? url : inputUrl)
     } else {
-      alert("Please enter valid URL address");
+      alert("Please enter valid URL");
     }
 
   }
@@ -61,6 +61,7 @@ const JsonHeader = (props) => {
     <Row>
       <Col xs="12" md="6">
         <InputGroup>
+          <img className='mr-2' height='35' src='./app-logo-2.png' />
           <InputGroupButtonDropdown
             className={'fitheight'}
             addonType="prepend"
@@ -88,7 +89,11 @@ const JsonHeader = (props) => {
               )}
             </DropdownMenu>
           </InputGroupButtonDropdown>
-          <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onChange={(e) => {
+          <Input type="text" className={'mb-1'} id="input1-group3" value={inputUrl} onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              callApiToFetchJSONDATA();
+            }
+          }} onChange={(e) => {
             setInputUrl(e.target.value)
           }} name="input1-group3" placeholder="http://"/>
           <InputGroupAddon title={'Hit URL'} className={'fitheight'} addonType="append">
@@ -130,7 +135,7 @@ const JsonHeader = (props) => {
             }
           }} onChange={(e) => {
             props.setFilterKey(e.target.value)
-          }} className={'mb-1'} id="input1-group3" name="input1-group3" placeholder="Key"/>
+          }} className={'mb-1'} id="input1-group3" name="input1-group3" placeholder="JSON key(case sensitive).."/>
           <InputGroupAddon className={classnames('fitheight')} addonType="append">
             <Button type="button" disabled={!props.filterKey} onClick={() => {
               props.filterData()

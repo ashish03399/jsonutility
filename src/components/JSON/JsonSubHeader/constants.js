@@ -32,20 +32,22 @@ export const subHeaderActions = [
     name: 'Sample JSON',
     title: 'Get Sample data',
     isMobile:true
-  }, {
-    key: ASC,
-    name: 'Ascending',
-    title: 'Ascending',
-    isMobile:true
-  }, {
-    key: DESC,
-    name: 'Descending',
-    title: 'Descending',
-    isMobile:true
-  }, {
-    key: EDIT,
-    name: 'Advance Editable',
-    title: 'Advance Editable',
-    isMobile:true
   }
 ]
+
+const demo =  [{
+  key: ASC,
+  name: 'Ascending',
+  title: 'Ascending',
+  isMobile:true
+}, {
+  key: DESC,
+  name: 'Descending',
+  title: 'Descending',
+  isMobile:true
+}, {
+  key: EDIT,
+  name: 'Advance Editable',
+  title: 'Advance Editable',
+  isMobile:true
+}]

@@ -22,7 +22,7 @@ const SearchPopup = props => {
       <Button id="Popover1" onClick={() => {
         setPopoverOpen(!popoverOpen)
       }} type="button" color="primary">
-        {popoverOpen ? 'Hide ToolTip' : 'Show ToolTip'}
+        {popoverOpen ? 'Hide' : 'Show Filtered Data'}
       </Button>
       <div className={`tooltiptext tooltip-bottom ${popoverOpen ? 'showToolTip' : 'hideToolTip'}`}>
         {props.jsonData?.length > 0 ? <React.Fragment>

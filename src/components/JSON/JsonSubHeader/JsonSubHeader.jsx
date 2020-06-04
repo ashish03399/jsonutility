@@ -12,7 +12,7 @@ const JsonSubHeader = (props) => {
   return <CardFooter className={'subHeader'}>
     <Row>
       <Col xs="6" sm="12" md="6" xl="6">
-        <ButtonGroup size="sm">
+        <ButtonGroup className={"addOnHeader"} size="sm">
           {subHeaderActions.map(action => {
             return <Button key={action.key} title={action.title}
                            className={classnames('text-inline ', {'activeAddon': addOnType === action.key})}

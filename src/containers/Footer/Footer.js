@@ -15,8 +15,7 @@ class Footer extends Component {
 
     return (
       <React.Fragment>
-        <span><a href="https://coreui.io">CoreUI</a> &copy; 2020 creativeLabs.</span>
-        <span className="ml-auto">Powered by <a href="https://coreui.io/react">CoreUI for React</a></span>
+        {/*<img src={} />*/}
       </React.Fragment>
     );
   }

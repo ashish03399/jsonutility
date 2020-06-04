@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import ReactJson from 'react-json-view'
 import * as jsonpath from 'jsonpath';
 import {renderjson} from './renderjson';
 
-import {data} from '../../thirdParty/axios/mockData/data.js'
+// import {data} from '../../thirdParty/axios/mockData/data.js'
 import {
   CardBody,
   Card,
@@ -20,7 +19,7 @@ import JsonBody from "./JSONBody/JSONBody";
 import {sample1} from "./SampleJSON/jsonsample";
 import {FETCH_JSON_DATA, FETCH_JSON_DATA_FAILED, FETCH_JSON_DATA_SUCCESS} from "./Constant";
 
-const isAPiDebugMode = true;
+const isAPiDebugMode = false;
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
   const [apiStatus, setApiStatus] = useState();
@@ -58,10 +57,10 @@ const JsonUtility = () => {
 
   const callApi = (inputUrl) => {
     resetAllData();
-    if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
-      formatData(data);
-      return;
-    }
+    // if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
+    //   formatData(data);
+    //   return;
+    // }
 
     setApiStatus(FETCH_JSON_DATA);
 
@@ -101,7 +100,6 @@ const JsonUtility = () => {
   }
 
   const addOnAction = (type) => {
-    debugger
     if (type === FORMAT) {
       const parsedJson = getParseJson(jsonData)
       if(typeof parsedJson === 'object'){
@@ -125,7 +123,7 @@ const JsonUtility = () => {
 
   return <Row className={'ml-0 mr-0'}>
     <Col xs="12" md="12" className={'mt-2'}>
-      <Card>
+      <Card className={'mb-1'}>
         <JsonHeader
           callApi={callApi}
           filterKey={filterKey}
