@@ -49,4 +49,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Deploy on Netlify
 
-The easiest way to deploy your Next.js app is to use the [Netlify Platform](https://docs.netlify.com/?_gl=1%2ayk5szy%2a_gcl_au%2aMzY2MzU4MzgzLjE2OTM1NTM4MTg.) from the creators of Next.js.
+The easiest way to deploy your app is to use the [Netlify Platform](https://docs.netlify.com/?_gl=1%2ayk5szy%2a_gcl_au%2aMzY2MzU4MzgzLjE2OTM1NTM4MTg.) from the creators of Next.js.
