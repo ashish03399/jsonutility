@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Button, Popover, PopoverHeader, PopoverBody} from 'reactstrap';
 import DynamicTable from "../dynamicTable/DynamicTable";
 import style from './SearchPopUp.scss';
-import {mockData} from './mockData'
 
 const SearchPopup = props => {
   const [popoverOpen, setPopoverOpen] = useState(false);

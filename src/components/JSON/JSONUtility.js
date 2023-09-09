@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import * as jsonpath from 'jsonpath';
 import {renderjson} from './renderjson';
-
-// import {data} from '../../thirdParty/axios/mockData/data.js'
 import {
   CardBody,
   Card,
@@ -14,12 +11,11 @@ import styles from './styles.scss'
 import {getApi} from '../../thirdParty/axios/axisConfig'
 import JsonHeader from "./JsonHeader/JsonHeader";
 import JsonSubHeader from "./JsonSubHeader/JsonSubHeader";
-import {BEAUTIFY, CLEAR, FORMAT, REMOVE_WHITE_SPACE, SAMPLE_JSON} from "./JsonSubHeader/constants";
+import {CLEAR, FORMAT, REMOVE_WHITE_SPACE, SAMPLE_JSON} from "./JsonSubHeader/constants";
 import JsonBody from "./JSONBody/JSONBody";
 import {sample1} from "./SampleJSON/jsonsample";
 import {FETCH_JSON_DATA, FETCH_JSON_DATA_FAILED, FETCH_JSON_DATA_SUCCESS} from "./Constant";
 
-const isAPiDebugMode = false;
 const JsonUtility = () => {
   const [jsonData, setJsonData] = useState();
   const [apiStatus, setApiStatus] = useState();
@@ -57,11 +53,6 @@ const JsonUtility = () => {
 
   const callApi = (inputUrl) => {
     resetAllData();
-    // if (isAPiDebugMode && !inputUrl) { // TODO: WILL REMOVE
-    //   formatData(data);
-    //   return;
-    // }
-
     setApiStatus(FETCH_JSON_DATA);
 
     // removing last child

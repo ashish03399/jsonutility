@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Badge, CardBody, Pagination, PaginationItem, PaginationLink, Table} from "reactstrap";
 import styles from './dynamicTable.scss'
 

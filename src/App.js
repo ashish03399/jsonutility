@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.scss';
-import Dashboard from "./containers/Dashboard/Dashboard";
+import JsonUtility from "./components/JSON/JSONUtility";
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -12,7 +12,7 @@ class App extends Component {
       <BrowserRouter>
         <React.Suspense fallback={loading()}>
           <Switch>
-            <Route path="/" name="" render={props => <Dashboard {...props}/>}/>
+            <Route path="/" name="" render={props => <JsonUtility {...props}/>}/>
           </Switch>
         </React.Suspense>
         <div >
