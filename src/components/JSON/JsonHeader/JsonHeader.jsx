@@ -23,7 +23,6 @@ const JsonHeader = (props) => {
   const [showUrl, setShowUrl] = useState(false);
   const [inputUrl, setInputUrl] = useState('');
   const [isUrlValid, setIsUrlValid] = useState();
-  const [showJsonSearchType, setShowJsonSearchType] = useState(false);
   let addedUrl = getLocalStorage(JSON_URLS) || [];
   const firstElementkey = addedUrl && addedUrl[0]?.key;
   if (firstElementkey && firstElementkey !== 'reset') {
@@ -114,21 +113,6 @@ const JsonHeader = (props) => {
       </Col>
       {props.jsonData && <Col xs="12" md="3">
         <InputGroup>
-          {/*<InputGroupButtonDropdown className={'fitheight'} addonType="prepend"*/}
-          {/*                          isOpen={showJsonSearchType}*/}
-          {/*                          toggle={() => {*/}
-          {/*                            setShowJsonSearchType(!showJsonSearchType);*/}
-          {/*                          }}>*/}
-          {/*  <DropdownToggle caret color="primary">*/}
-          {/*    Search*/}
-          {/*  </DropdownToggle>*/}
-          {/*  <DropdownMenu className={showJsonSearchType ? 'show' : ''}>*/}
-          {/*    <DropdownItem>Search By Key</DropdownItem>*/}
-          {/*    <DropdownItem>Search By Value</DropdownItem>*/}
-          {/*    <DropdownItem divider/>*/}
-          {/*    <DropdownItem>Separated link</DropdownItem>*/}
-          {/*  </DropdownMenu>*/}
-          {/*</InputGroupButtonDropdown>*/}
           <Input type="text" value={props.filterKey} onKeyDown={(e) => {
             if (e.key === 'Enter') {
               props.filterData()

@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import {Input} from "reactstrap";
 
-import {ASC, BEAUTIFY, EDIT, FORMAT, REMOVE_WHITE_SPACE} from "../JsonSubHeader/constants";
+import {BEAUTIFY, FORMAT, REMOVE_WHITE_SPACE} from "../JsonSubHeader/constants";
 import JSONEditorReact from "../JSONEditorReact/JSONEditorReact";
-import style from './JSONBody.scss'
-import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
 
 const JsonBody = props => {
@@ -88,8 +85,6 @@ const JsonBody = props => {
     props.setJsonDataString(value);
   }
 
-  // typeof props.jsonDataString === 'object' ? JSON.stringify(props.jsonDataString) : props.jsonDataString
-
   const getJsonData = (json, src) => {
     if(json && typeof json === 'string' && json.length > 100){
       try{
@@ -98,7 +93,6 @@ const JsonBody = props => {
     }
     if (json) {
       if (typeof json === 'object') {
-        // return src === BEAUTIFY ? JSON.stringify(json, null, 2) : JSON.stringify(json)
         return {
           [BEAUTIFY]: () => JSON.stringify(json, null, 2),
           [REMOVE_WHITE_SPACE]: () => JSON.stringify(json)

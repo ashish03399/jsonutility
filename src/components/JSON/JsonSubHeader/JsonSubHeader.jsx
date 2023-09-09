@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {Button, ButtonGroup, CardFooter, Col, Row} from "reactstrap";
-import {FORMAT, subHeaderActions} from "./constants";
+import {subHeaderActions} from "./constants";
 import style from './JsonSubHeader.scss'
 
 const JsonSubHeader = (props) => {

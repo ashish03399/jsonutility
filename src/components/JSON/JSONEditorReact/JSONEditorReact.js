@@ -9,8 +9,6 @@ import './JSONEditorReact.scss';
 
 export default class JSONEditorReact extends Component {
   componentDidMount () {
-    // copy all properties into options for the editor
-    // (except the properties for the JSONEditorReact component itself)
     const options = Object.assign({}, this.props);
     delete options.json;
     delete options.text;

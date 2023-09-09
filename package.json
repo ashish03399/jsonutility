@@ -1,11 +1,8 @@
 {
   "name": "JSONUtility",
   "version": "2.6.1",
-  "description": "JSON Utility",
-  "author": "Łukasz Holeczek",
-  "homepage": "https://coreui.io",
-  "copyright": "Copyright 2017-2019 creativeLabs Łukasz Holeczek",
-  "license": "MIT",
+  "description": "Online JSON Viewer, Search all values in json with keys and path",
+  "author": "Ashish Bansal",
   "private": true,
   "dependencies": {
     "@coreui/coreui": "^2.1.16",
